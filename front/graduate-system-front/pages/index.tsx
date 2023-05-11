@@ -77,11 +77,16 @@ const Home: React.FC = () => {
   return (
     <>
       <MainWrapper hasHeader={false} themeName={Theme.gray} hasContent={false}>
-        <Image src={fotoIcUff} layout="fill" objectFit="cover" />
+        <Image
+          src={fotoIcUff}
+          fill
+          style={{ objectFit: 'cover' }}
+          alt={'Foto do Instituto de Computação'}
+        />
         <Background>
           <Content>
             <ImageLogo>
-              <Image src={logo} width="370" height="265" layout="fixed" />
+              <Image src={logo} width="370" height="265" alt={'Logo do Instituto de Computação'} />
             </ImageLogo>
             <Title>Sistema de Egressos</Title>
             <form onSubmit={handleSubmit(onSubmit)}>
