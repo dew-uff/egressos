@@ -63,7 +63,7 @@ enum class Errors(val message: String, val responseMessage: String, val errorCod
     HttpStatus.INTERNAL_SERVER_ERROR
   ),
 
-  CANT_GET_LAST_WORK_HISTORY(
+  CANT_GET_CURRENT_HISTORIES(
     "Error trying to get last work history",
     "Erro ao tentar retornar último histórico de trabalho.",
     HttpStatus.INTERNAL_SERVER_ERROR
@@ -134,6 +134,12 @@ enum class Errors(val message: String, val responseMessage: String, val errorCod
   CANT_UPDATE_CI_PROGRAM(
     "Error updating CI program",
     "Erro ao atualizar programa do IC.",
+    HttpStatus.INTERNAL_SERVER_ERROR
+  ),
+
+  CANT_RETRIEVE_COURSES(
+    "Cant retrieve courses",
+    "Erro ao retornar cursos.",
     HttpStatus.INTERNAL_SERVER_ERROR
   ),
 

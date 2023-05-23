@@ -1,7 +1,7 @@
 package br.uff.graduatesapi.repository
 
-import br.uff.graduatesapi.model.HistoryStatus
+import br.uff.graduatesapi.model.Course
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
-interface HistoryStatusRepository : JpaRepository<HistoryStatus, UUID>
+interface CourseRepository : JpaRepository<Course, UUID>
