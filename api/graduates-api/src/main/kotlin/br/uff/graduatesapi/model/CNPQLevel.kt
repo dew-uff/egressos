@@ -2,7 +2,7 @@ package br.uff.graduatesapi.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.CreationTimestamp
-import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -13,9 +13,10 @@ import javax.persistence.OneToMany
 @Entity
 class CNPQLevel(
 
-  @Column(name = "level", nullable = false, updatable = false)
-  var level: String,
+  @Column(name = "name", nullable = false, updatable = false)
+  var name: String,
 
+  @JsonIgnore
   @Column(name = "active", nullable = false, updatable = true)
   val active: Boolean = true,
 
@@ -30,5 +31,5 @@ class CNPQLevel(
 
   @CreationTimestamp
   @Column(name = "created_at", nullable = false, updatable = false)
-  lateinit var createdAt: LocalDate
+  lateinit var createdAt: LocalDateTime
 }

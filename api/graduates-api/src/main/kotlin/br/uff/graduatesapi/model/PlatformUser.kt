@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.time.LocalDate
-import java.util.UUID
+import java.time.LocalDateTime
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -39,7 +40,11 @@ class PlatformUser(
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    lateinit var createdAt: LocalDate
+    lateinit var createdAt: LocalDateTime
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = true, updatable = true)
+    var updatedAt: LocalDateTime? = null
 
     @Column(nullable = false)
     var password = ""
