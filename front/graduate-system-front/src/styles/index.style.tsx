@@ -1,9 +1,14 @@
+import React from 'react'
 import styled from 'styled-components'
+import { styled as styledMUI } from '@mui/material/styles'
+import { Grid, Typography } from '@mui/material'
+import { HISTORY_STATUS } from '@modules/Egressos/types'
+import { theme } from '@styles/theme'
+
+const fontFamily = 'font-family: Roboto, sans-serif'
 
 export const Content = styled.div`
-  //width: 100%;
   padding: 50px;
-  //position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,35 +16,6 @@ export const Content = styled.div`
 
 export const ImageLogo = styled.div`
   padding-top: 112px;
-`
-
-export const Column = styled.div`
-  float: left;
-  width: 50%;
-`
-
-export const Section = styled.div`
-  width: ${({ width }: { width?: string }) => width ?? 100}%;
-  padding-right: 10px;
-  padding-bottom: 30px;
-`
-
-export const CheckboxLabel = styled.label`
-  padding-left: 5px;
-`
-
-const alignCenter = `
-align-content : center;
-  flex-direction: column;
-  flex-wrap: wrap;
-`
-
-export const Form = styled.div`
-  width: 100%;
-  position: relative;
-  display: flex;
-  ${({ position }: { position?: string }) =>
-    position === 'left' ? 'justify-content: left;' : alignCenter};
 `
 
 export const FormInputGroup = styled.div`
@@ -51,98 +27,49 @@ export const FormInputGroup = styled.div`
   margin-bottom: 11px;
 `
 
-export const Title = styled.h1`
+export const TitleLogin = styled.h1`
   padding-top: 24px;
   padding-bottom: 54px;
-  font-family: Roboto;
+  font-family: ${fontFamily};
   font-style: normal;
   font-weight: normal;
   font-size: 40px;
   line-height: 47px;
 
-  color: #ffffff;
+  color: ${({ theme }) => theme.palette.primary.contrastText};
 `
 
-export const Label = styled.label`
-  position: absolute;
-  top: 16px;
-  left: 20px;
-  transition: all 0.3s ease;
-  opacity: 0;
-  color: #4b907e;
-  font-family: Roboto;
-  font-size: 12px;
-  line-height: 14px;
-`
-
-export const Input = styled.input`
-  display: block;
-  width: ${({ width }: { width?: number }) => (width ? `${width}px` : '100%')};
-  //width: 300px;
-  height: 48px;
-  padding-left: 16px;
-  transition: all 0.3s linear;
-  border: 3px solid #cbcbcb;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #4b907e;
-  font-family: Roboto;
-  font-size: 20px;
-  line-height: 23px;
-
-  &:focus {
-    outline: 0;
-  }
-
-  &:not(:placeholder-shown) {
-    //padding-top: 26px;
-    //padding-bottom: 14px;
-    padding-left: 16px;
-  }
-
-  &:not(:placeholder-shown) + ${Label} {
-    transform: translateY(-12px);
-    opacity: 1;
-  }
-
-  &::placeholder {
-    top: 0;
-    color: #4b907e;
-    font-size: 16px;
-    font-style: normal;
-    font-family: Roboto;
-    letter-spacing: 0.48px;
-    line-height: 19px;
-  }
-`
-
-export const Error = styled.p`
-  height: 30px;
-  margin-top: 5px;
-  color: #55c32d;
-  font-size: 12px;
-  line-height: lh(12px, 14px);
-`
-
-export const Button = styled.button`
-  width: 154px;
-  height: 46px;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-  background-color: #ffff;
-  opacity: 0.8;
-  font-family: Roboto;
+export const Title = styled.h1`
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: ${fontFamily};
   font-style: normal;
   font-weight: normal;
-  font-size: 20px;
-  line-height: 23px;
-  color: #4b907eff;
-  border: none;
+  font-size: 36px;
+  line-height: 47px;
 
-  &:hover {
-    opacity: 1;
-  }
+  color: ${({ theme }) => theme.palette.primary.main};
+`
+
+export const PageWrapper = styledMUI(Grid)`
+  padding: 20px 20px 50px 50px;
+`
+export const Label = styled.p`
+  padding-top: 5px;
+  padding-bottom: 15px;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: ${({ color = theme.palette.text.secondary }) => color};
+`
+export const ErrorMessage = styled.p`
+  padding-left: 24px;
+  padding-top: 5px;
+  padding-bottom: 15px;
+  font-size: 15px;
+  line-height: 24px;
+
+  color: #cb0000;
 `
 
 export const Background = styled.div`
@@ -152,6 +79,55 @@ export const Background = styled.div`
   width: 100%;
 `
 
-export const Row = styled.div`
-  padding-top: 15px;
+const statusColor = {
+  [HISTORY_STATUS.PENDING]: '#e11818',
+  [HISTORY_STATUS.UPDATED]: '#5BAFC9',
+  [HISTORY_STATUS.UPDATED_PARTIALLY]: '#DCB552',
+  default: theme.palette.primary.main,
+}
+
+export const Fields = styled.p`
+  padding-top: 5px;
+  padding-bottom: 15px;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: ${({ status }: { status?: string }) => statusColor[status ?? 'default']};
 `
+
+interface TableCellProps {
+  children: React.ReactNode
+  status?: HISTORY_STATUS
+  width?: string
+}
+
+export const TypographyTableCell = ({ children, status, width = '250px' }: TableCellProps) => (
+  <Typography
+    sx={{
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      maxWidth: width,
+      borderStyle: 'border-box',
+      paddingTop: '5px',
+      paddingBottom: '15px',
+      fontSize: '16px',
+      lineHeight: '24px',
+      color: status ? statusColor[status] : theme.palette.primary.main,
+    }}
+  >
+    {children}
+  </Typography>
+)
+
+export const DialogTitleTypography = ({ children }) => (
+  <Typography variant="h6" color="primary.main">
+    {children}
+  </Typography>
+)
+
+export const Subtitle = ({ children }) => (
+  <Typography color="primary.main" fontWeight="medium" variant="h5">
+    {children}
+  </Typography>
+)

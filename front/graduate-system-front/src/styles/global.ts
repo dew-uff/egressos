@@ -10,8 +10,6 @@ export default createGlobalStyle`
   body {
     width: 100%;
     display: table-cell;
-    background: ${props => props.theme.colors.background};
-    color: ${props => props.theme.colors.text};
     font: 400 16px Roboto, sans-serif;
   }
    html,
@@ -75,21 +73,51 @@ export default createGlobalStyle`
     float: left;
     width: 33%;
   }
-  input:invalid {
-    border: 3px solid #900;
-    border-color: #900;
-    background-color: #FDD;
+
+  .card {
+    border-radius: 5px;
+    box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+    padding: 30px;
+    margin: 20px;
+    width: 400px;
+    transition: all 0.3s ease-out;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+  }
+
+  .card p {
+    color: #a3a5ae;
+    font-size: 16px;
+  }
+
+
+  .blue {
+    border-left: 3px solid #4895ff;
+  }
+
+  .green {
+    border-left: 3px solid #3bb54a;
+  }
+
+  .red {
+    border-left: 3px solid #b3404a;
+  }
+
+  .preto{
+    color: rgba(11,105,81,0.7);
+  }
+
+  .image {
+    padding-top: 30px;
+    float: right;
+    max-width: 64px;
+    max-height: 64px;
   }
 
   /* This is the style of our error messages */
 
-
-  /* Clear floats after the columns */
-  //.row:after {
-  //  content: "";
-  //  display: table;
-  //  clear: both;
-  //}
 
   h1,
   h2,
@@ -135,12 +163,19 @@ export default createGlobalStyle`
   .cabecalho{
     width: 100%;
   }
-
-  .colunameio{
-    width: 80%;
-  }
+  //
+  //.colunameio{
+  //  width: 80%;
+  //}
 
   #__next {
     height: 100%;
   }
+
+  .trash-icon{
+    margin-left: 20px;
+    cursor: pointer;
+  }
+
+
   `

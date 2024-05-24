@@ -1,5 +1,6 @@
-import styled from 'styled-components'
-import { Theme } from '../../utils/enums'
+import { Theme } from '@utils/enums'
+import { Grid } from '@components'
+import React from 'react'
 
 const theme = {
   gray: {
@@ -12,36 +13,24 @@ const theme = {
 
 type AppProps = {
   themeName: Theme
+  children: React.ReactNode
 }
 
-export const Wrapper = styled.div<AppProps>`
-  display: grid;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: ${props => theme[props.themeName].backgroundColor};
+export const Wrapper = ({ themeName, children }: AppProps) => (
+  <Grid
+    display="block"
+    position="relative"
+    width="100%"
+    height="100%"
+    sx={{ width: '100%', backgroundColor: theme[themeName].backgroundColor }}
+    container
+  >
+    {children}
+  </Grid>
+)
 
-  //@media screen and (min-width: 320px) and {
-  //  position: absolute;
-  //  top: 100%;
-  //  left: 0;
-  //  width: 100vh;
-  //  height: 100vw;
-  //  overflow: hidden;
-  //  transform: rotate(-90deg);
-  //  transform-origin: left top;
-  //}
-`
-
-export const Content = styled.div`
-  //width: 100%;
-  flex-direction: column;
-  height: 100%;
-  padding: 0 70px 0 50px;
-
-  //@media (min-width: 360px) {
-  //  width: 328px;
-  //  margin: 0 auto;
-  //  padding: 0;
-  //}
-`
+export const Content = ({ children }) => (
+  <Grid item overflow="auto" maxHeight="100vh+88px" padding="0 50px 0 50px" flexDirection="column">
+    {children}
+  </Grid>
+)
