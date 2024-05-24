@@ -1,1 +1,66 @@
 .idea
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/front/graduate-system-front/node_modules
+
+# testing
+/front/graduate-system-front/coverage
+
+# next.js
+/front/graduate-system-front/.next
+/front/graduate-system-front/out
+
+# production
+/front/graduate-system-front/build
+
+# debug
+/front/graduate-system-front/.vscode
+/front/graduate-system-front/npm-debug.log*
+/front/graduate-system-front/yarn-debug.log*
+/front/graduate-system-front/yarn-error.log*
+
+# local env files
+/front/graduate-system-front/.env.local
+/front/graduate-system-front/.env.development.local
+/front/graduate-system-front/.env.test.local
+/front/graduate-system-front/.env.production.local
+
+# vercel
+/front/graduate-system-front/.vercel
+
+#Ide
+/front/graduate-system-front/.idea
+/api/graduates-api/.idea
+/.idea
+
+#gradle
+/api/graduates-api/.gradle
+/api/graduates-api/build
+/api/graduates-api/!gradle/wrapper/gradle-wrapper.jar
+/api/graduates-api/!**/src/main/**/build/
+/api/graduates-api/!**/src/test/**/build/
+
+### STS ###
+/api/graduates-api/.apt_generated
+/api/graduates-api/.classpath
+/api/graduates-api/.factorypath
+/api/graduates-api/.project
+/api/graduates-api/.settings
+/api/graduates-api/.springBeans
+/api/graduates-api/.sts4-cache
+/api/graduates-api/bin/
+/api/graduates-api/!**/src/main/**/bin/
+/api/graduates-api/!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+/api/graduates-api/*.iml
+/api/graduates-api/*.ipr
+/api/graduates-api/*.iws
+/api/graduates-api/out/
+/api/graduates-api/!**/src/main/**/out/
+/api/graduates-api/!**/src/test/**/out/
+
+### VS Code ###
+/api/graduates-api/.vscode/
+

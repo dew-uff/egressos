@@ -9,6 +9,8 @@ spring:
   jpa:
     generate-ddl: true
     show-sql: true
+    hibernate:
+      ddl-auto: update
   mail:
     host: ${MAIL_SENDER_HOST}
     port: ${MAIL_SENDER_PORT}
@@ -38,3 +40,10 @@ jwt:
 
 token:
   expiration: ${TOKEN_EXPIRATION}
+
+cors:
+  originPatterns: ${CORS_ORIGINS}
+
+reset-password:
+  url: ${RESET_PASSWORD_URL}
+

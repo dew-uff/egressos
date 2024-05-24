@@ -2,6 +2,8 @@ package br.uff.graduatesapi.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.Column
@@ -23,14 +25,21 @@ class Course(
     @ManyToOne(optional = false)
     var graduate: Graduate,
 
-    @Column(name = "minute_defense", nullable = false)
-    var minuteDefense: Int,
+    @Column(nullable = false, unique = true)
+    var defenseMinute: String,
+
+    @Column(nullable = false)
+    var titleDate: LocalDate,
 ) {
     @Id
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     var id: UUID = UUID.randomUUID()
 
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = true, updatable = true)
+    var updatedAt: LocalDateTime? = null
+
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     lateinit var createdAt: LocalDateTime
 }

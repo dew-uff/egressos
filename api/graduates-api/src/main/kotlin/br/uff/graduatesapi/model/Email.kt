@@ -1,14 +1,12 @@
 package br.uff.graduatesapi.model
 
+import br.uff.graduatesapi.enum.RoleEnum
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
@@ -29,8 +27,9 @@ class Email(
     @Column(name = "button_url", nullable = false, updatable = true)
     var buttonURL: String,
 
-    @Column(name = "is_graduate_email", nullable = false, updatable = true)
-    val isGraduateEmail: Boolean,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role", nullable = false, updatable = true, columnDefinition = "VARCHAR(10) DEFAULT 'GRADUATE'")
+    val userRole: RoleEnum,
 
     @Column(name = "active", nullable = false, updatable = true)
     var active: Boolean = true,

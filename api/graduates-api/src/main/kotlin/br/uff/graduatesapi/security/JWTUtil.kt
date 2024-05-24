@@ -14,21 +14,28 @@ class JWTUtil {
     @Value("\${jwt.secret}")
     private lateinit var secret: String
 
-    @Value("\${token.expiration}")
-    private lateinit var expiration: String
-
     fun parseJwtToBody(jwt: String): Claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(jwt).body
 
-    fun generateJWTCookie(issuer: String): Cookie {
-        val exp = expiration.toLong()
+    fun generateJWT(issuer: String): String {
 
-        val jwt = Jwts.builder()
+        return Jwts.builder()
             .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + exp))
+            .signWith(SignatureAlgorithm.HS512, secret).compact()
+    }
+
+    fun generateJWTWithExpiration(issuer: String, expiration: Long) =
+        Jwts.builder()
+            .setIssuer(issuer)
+            .setExpiration(Date(System.currentTimeMillis() + expiration))
             .signWith(SignatureAlgorithm.HS512, secret).compact()
 
-        val cookie = Cookie("jwt", jwt)
+
+    fun generateJWTCookie(issuer: String): Cookie {
+        val jwt = generateJWT(issuer)
+
+        val cookie = Cookie("user.token", jwt)
         cookie.isHttpOnly = true
+        cookie.path = "/"
         return cookie
     }
 }

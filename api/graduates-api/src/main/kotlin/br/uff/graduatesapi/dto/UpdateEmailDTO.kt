@@ -5,5 +5,5 @@ data class UpdateEmailDTO(
   val content: String?,
   val buttonText: String?,
   val buttonURL: String?,
-  val active: Boolean?,
+  val active: Boolean? = true,
   )

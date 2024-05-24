@@ -22,6 +22,7 @@ class EmailRepositoryImpl(
       where(
         or(
           emailFilters.name?.run { column(Email::name).like("%${this}") },
+          emailFilters.userRole?.run { column(Email::userRole).equal(this) },
           emailFilters.id?.run { column(Email::id).equal(this) }
         )
       )
@@ -34,7 +35,8 @@ class EmailRepositoryImpl(
       from(entity(Email::class))
       where(
         or(
-          emailFilters.name?.run { column(Email::name).like("%${this.lowercase()}") },
+          emailFilters.name?.run { column(Email::name).like("%${this.lowercase()}%") },
+          emailFilters.userRole?.run { column(Email::userRole).equal(this) },
           emailFilters.id?.run { column(Email::id).equal(this) }
         )
       )

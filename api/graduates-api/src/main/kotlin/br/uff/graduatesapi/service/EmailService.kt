@@ -6,6 +6,7 @@ import br.uff.graduatesapi.dto.MetaDTO
 import br.uff.graduatesapi.dto.UpdateEmailDTO
 import br.uff.graduatesapi.entity.EmailFilters
 import br.uff.graduatesapi.entity.OffsetLimit
+import br.uff.graduatesapi.enum.RoleEnum
 import br.uff.graduatesapi.error.Errors
 import br.uff.graduatesapi.error.ResponseResult
 import br.uff.graduatesapi.model.Email
@@ -34,6 +35,15 @@ class EmailService(
         } catch (err: Error) {
             ResponseResult.Error(Errors.CANT_RETRIEVE_EMAILS)
         }
+
+    fun findActiveAdminEmail(): ResponseResult<Email?> {
+        val result = emailRepository.findByActiveIsAndUserRoleIs(true, RoleEnum.ADMIN)
+        return if (result == null) {
+            ResponseResult.Error(Errors.EMAIL_NOT_FOUND)
+        } else {
+            ResponseResult.Success(result)
+        }
+    }
 
 
     fun deleteEmail(id: UUID): ResponseResult<Nothing?> {
@@ -68,14 +78,6 @@ class EmailService(
         return ResponseResult.Success(result)
     }
 
-    fun createEmail(id: UUID): ResponseResult<Nothing?> =
-        try {
-            emailRepository.deleteById(id)
-            ResponseResult.Success(null)
-        } catch (err: Error) {
-            ResponseResult.Error(Errors.CANT_DELETE_CI_PROGRAM)
-        }
-
     fun createEmail(createEmailDTO: CreateEmailDTO): ResponseResult<Nothing?> {
         val email = Email(
             title = createEmailDTO.title,
@@ -84,11 +86,11 @@ class EmailService(
             buttonText = createEmailDTO.buttonText,
             buttonURL = createEmailDTO.buttonURL,
             active = createEmailDTO.active,
-            isGraduateEmail = createEmailDTO.isGraduateEmail,
+            userRole = createEmailDTO.userRole,
         )
         return try {
-            if (createEmailDTO.active)
-                emailRepository.deactivateEmails(createEmailDTO.isGraduateEmail)
+            if (createEmailDTO.active && createEmailDTO.userRole == RoleEnum.ADMIN)
+                emailRepository.deactivateEmails(createEmailDTO.userRole)
             emailRepository.save(email)
             ResponseResult.Success(null)
         } catch (err: Error) {
@@ -96,9 +98,9 @@ class EmailService(
         }
     }
 
-    fun deactivateEmails(isGraduateEmail: Boolean): ResponseResult<Nothing?> =
+    fun deactivateEmails(userRole: RoleEnum): ResponseResult<Nothing?> =
         try {
-            emailRepository.deactivateEmails(isGraduateEmail)
+            emailRepository.deactivateEmails(userRole)
             ResponseResult.Success(null)
         } catch (ex: Exception) {
             ResponseResult.Error(Errors.CANT_DEACTIVATE_EMAILS)
@@ -117,8 +119,8 @@ class EmailService(
             updateEmailDTO.buttonText?.let { email.buttonText = it }
             updateEmailDTO.buttonURL?.let { email.buttonURL = it }
             updateEmailDTO.active?.let {
-                if (it && !email.active) {
-                    deactivateEmails(email.isGraduateEmail)
+                if (it && !email.active && email.userRole == RoleEnum.ADMIN) {
+                    deactivateEmails(email.userRole)
                     email.active = true
                 }
             }

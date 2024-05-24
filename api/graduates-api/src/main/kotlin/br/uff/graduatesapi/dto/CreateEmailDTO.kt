@@ -1,5 +1,7 @@
 package br.uff.graduatesapi.dto
 
+import br.uff.graduatesapi.enum.RoleEnum
+
 data class CreateEmailDTO(
   val title: String,
   val name: String,
@@ -7,5 +9,5 @@ data class CreateEmailDTO(
   val buttonText: String,
   val buttonURL: String,
   val active: Boolean = false,
-  val isGraduateEmail: Boolean,
+  val userRole: RoleEnum,
   )
