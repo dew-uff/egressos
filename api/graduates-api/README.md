@@ -27,6 +27,8 @@ git checkout main
 git pull
 ```
 
+This project utilizes PostgreSQL as its database system. If you wish to switch to a different database system, you will need to modify the configuration settings in the src/main/resources/application.yml file. This file contains the database connection details, and any changes to the database type would require corresponding updates to these settings.
+
 ### 3. Build the Project
 Navigate to the project directory and build the project:
 
